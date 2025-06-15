@@ -5,7 +5,7 @@ from matplotlib.colors import LinearSegmentedColormap
 import numpy as np
 
 # データ読み込み
-df = pd.read_csv('data/data_2Dmap_8Org_Broth.csv')
+df = pd.read_csv('data_2Dmap_8Org_Broth.csv')
 
 # UI構築
 st.title('pH vs aw Scatter Plot')
