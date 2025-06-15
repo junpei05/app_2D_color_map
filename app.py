@@ -80,12 +80,12 @@ def scatter_subgroup(df, color, label):
     ax.scatter(df[x_col], df[y_col], marker='s', color=color, s=400, label=label)
 
 scatter_subgroup(d_p2, cmap[4], r'≥ 3 log(Nt/N0)')
-scatter_subgroup(d_p1, cmap[3], r'1-3 log(Nt/N0)')
-scatter_subgroup(d_0, cmap[2], r'-1～1 log(Nt/N0)')
-scatter_subgroup(d_n1, cmap[1], r'-1～-3 log(Nt/N0)')
+scatter_subgroup(d_p1, cmap[3], r'1~3 log(Nt/N0)')
+scatter_subgroup(d_0, cmap[2], r'-1~1 log(Nt/N0)')
+scatter_subgroup(d_n1, cmap[1], r'-1~-3 log(Nt/N0)')
 scatter_subgroup(d_n2, cmap[0], r'< -3 log(Nt/N0)')
 
 # legendを図の外側右下
-ax.legend(loc='lower right', bbox_to_anchor=(1.38, 0.03), fontsize=12, title='Change Ratio', frameon=True)
+ax.legend(loc='lower right', bbox_to_anchor=(1.38, 0.03), fontsize=12, title='Change Ratio', frameon=False)
 
 st.pyplot(fig)
