@@ -57,7 +57,11 @@ ax.set_yticks([0.90, 0.945, 0.99])
 ax.tick_params(axis='both', labelsize=15)
 ax.set_xlabel('pH', fontsize=18)
 ax.set_ylabel('$a_{w}$', fontsize=18)
-ax.set_title(f'{organism}\n{name} | {category} | {temperature}℃', fontsize=20, fontstyle='italic')
+# Organism名だけイタリック
+organism_latex = r"$\it{" + organism.replace(' ', r'\ ') + "}$"
+title_str = f'{organism_latex}\n({category} - {name}, {temperature}℃)'
+ax.set_title(title_str, fontsize=20)
+
 
 ax.scatter(d_p2['pH'], d_p2['Aw'], marker='s', color=cmap[4], s=400, label='≥ 3 log(Nt/N0)')
 ax.scatter(d_p1['pH'], d_p1['Aw'], marker='s', color=cmap[3], s=400, label='1-3 log(Nt/N0)')
