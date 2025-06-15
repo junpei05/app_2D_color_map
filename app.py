@@ -30,13 +30,12 @@ name = st.selectbox('Name', names)
 
 # スライダー対象のカラムの値範囲自動取得
 slider_vals = sorted(df[slider_col].dropna().unique())
-if df[slider_col].dtype in [np.float64, np.float32, float]:
-    slider_min, slider_max = float(min(slider_vals)), float(max(slider_vals))
-    step = 0.01 if (slider_max - slider_min) < 1 else 0.1
-    slider_default = float(slider_vals[0])
-    slider_val = st.slider(f'{slider_col}', min_value=slider_min, max_value=slider_max, value=slider_default, step=step, format="%.2f")
-else:
-    slider_val = st.slider(f'{slider_col}', min_value=int(min(slider_vals)), max_value=int(max(slider_vals)), value=int(slider_vals[0]), step=1)
+slider_val = st.select_slider(
+    f'{slider_col}',
+    options=slider_vals,
+    value=slider_vals[0],
+    format_func=lambda x: f'{x:.2f}' if isinstance(x, float) else str(x)
+)
 
 # データ抽出
 query = (
