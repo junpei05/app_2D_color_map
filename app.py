@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 import numpy as np
+from utils.plotting import custom_ncmap
 
 # データ読み込み
 df = pd.read_csv('data_2Dmap_8Org_Broth.csv')
@@ -44,10 +45,6 @@ d_p1 = d0[(d0['Predict'] >= 1.0) & (d0['Predict'] < 3.0)]
 d_n2 = d0[d0['Predict'] < -3.0]
 d_p2 = d0[d0['Predict'] >= 3.0]
 
-# カスタムカラーマップ
-def custom_ncmap(name, n):
-    base = plt.get_cmap(name)
-    return [base(i / (n - 1)) for i in range(n)]
 
 cmap = custom_ncmap('coolwarm', 5)
 
