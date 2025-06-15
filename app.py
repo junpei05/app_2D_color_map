@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from utils.plotting import custom_ncmap
 import numpy as np
 
-df = pd.read_csv('data/data_2Dmap_8Org_Broth.csv')
+df = pd.read_csv('data_2Dmap_8Org_Broth.csv')
 
 st.title('2D Growth Map Viewer')
 st.write('Select axes and conditions to visualize predicted growth (log(Nt/N0) change)')
