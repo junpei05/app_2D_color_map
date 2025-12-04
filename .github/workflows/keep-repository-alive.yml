@@ -2,7 +2,7 @@ name: Repo Keepalive
 
 on:
   schedule:
-    # 毎月1日と15日の 06:00 UTC に実行（日本時間 15:00）
+    # 毎月1日と15日の 06:00 UTC（日本時間 15:00）
     - cron: '0 6 1,15 * *'
   workflow_dispatch:
 
@@ -10,17 +10,17 @@ jobs:
   keepalive:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # push するので必要
+      contents: write
 
     steps:
       - name: Checkout keep-active branch
         uses: actions/checkout@v4
         with:
-          ref: keep-active
+          ref: keep-active  # ← ここで「触るブランチ」を指定
 
       - name: Make empty commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit --allow-empty -m "chore: keep workflows alive"
-          git push
+          git push origin keep-active
