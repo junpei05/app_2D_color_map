@@ -15,4 +15,4 @@ jobs:
         run: |
           # 単に起こすだけなら HEAD リクエスト(-I)でもOK
           # 失敗したらジョブも失敗させたいなら --fail を付ける
-          curl -I --fail https://calc-potolo-polus.streamlit.app/
+          curl -I --fail https://app2dcolormap-6kdothisijw76lj7hyxl3n.streamlit.app/
