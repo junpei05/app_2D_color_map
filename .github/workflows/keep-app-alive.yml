@@ -3,7 +3,7 @@ name: Keep App Alive
 on:
   schedule:
     # 8時間おき（UTC 0, 8, 16時）→ 日本時間 9:00, 17:00, 1:00
-    - cron: '0 */10 * * *'
+    - cron: '0 */3 * * *'
   # 手動実行を可能にするトリガー
   workflow_dispatch:
 
@@ -13,6 +13,4 @@ jobs:
     steps:
       - name: Send request to Streamlit App
         run: |
-          # 単に起こすだけなら HEAD リクエスト(-I)でもOK
-          # 失敗したらジョブも失敗させたいなら --fail を付ける
-          curl -I --fail https://app2dcolormap-6kdothisijw76lj7hyxl3n.streamlit.app/
+          curl --fail -s -o /dev/null https://app2dcolormap-6kdothisijw76lj7hyxl3n.streamlit.app/
