@@ -2,7 +2,7 @@ name: Keep App Alive
 
 on:
   schedule:
-    # 8時間おき（UTC 0, 8, 16時）→ 日本時間 9:00, 17:00, 1:00
+    # 3時間おき（UTC）→ 日本時間 9:00, 12:00, 15:00, ...
     - cron: '0 */3 * * *'
   # 手動実行を可能にするトリガー
   workflow_dispatch:
@@ -11,6 +11,8 @@ jobs:
   ping-app:
     runs-on: ubuntu-latest
     steps:
-      - name: Send request to Streamlit App
+      - name: Ping Streamlit App twice
         run: |
+          curl --fail -s -o /dev/null https://app2dcolormap-6kdothisijw76lj7hyxl3n.streamlit.app/
+          sleep 10
           curl --fail -s -o /dev/null https://app2dcolormap-6kdothisijw76lj7hyxl3n.streamlit.app/
