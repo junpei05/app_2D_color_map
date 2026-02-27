@@ -5,7 +5,31 @@ from playwright.sync_api import sync_playwright
 
 APP_URL = "https://app2dcolormap-6kdothisijw76lj7hyxl3n.streamlit.app/"
 MAX_RETRIES = 3
-RETRY_INTERVAL = 30  # seconds
+RETRY_INTERVAL = 60  # seconds
+
+
+def wake_up_if_sleeping(page):
+    """スリープ中のアプリを検知し、起動ボタンをクリックする"""
+    # Streamlit Community Cloud のウェイクアップボタンを探す
+    wake_buttons = [
+        'button:has-text("Yes, get this app back up!")',
+        'button:has-text("Wake up")',
+        'button:has-text("Yes")',
+        '[data-testid="stAppWakeUpButton"]',
+    ]
+    for selector in wake_buttons:
+        try:
+            btn = page.locator(selector).first
+            if btn.is_visible(timeout=5_000):
+                print(f"App is sleeping. Clicking wake-up button: {selector}")
+                btn.click()
+                # 起動を待つ（コールドスタートは時間がかかる）
+                print("Waiting for app to boot up after wake...")
+                page.wait_for_timeout(10_000)
+                return True
+        except Exception:
+            continue
+    return False
 
 
 def visit_app(page):
@@ -13,11 +37,15 @@ def visit_app(page):
     print(f"Navigating to {APP_URL}")
     page.goto(APP_URL, wait_until="load", timeout=180_000)
 
-    # Streamlit アプリ本体の描画を待つ（スリープ復帰を含む）
+    # スリープ中ならウェイクアップボタンをクリック
+    wake_up_if_sleeping(page)
+
+    # Streamlit アプリ本体の描画を待つ
     print("Waiting for Streamlit app to render...")
     page.wait_for_selector(
         '[data-testid="stAppViewContainer"]',
-        timeout=180_000,
+        state="visible",
+        timeout=300_000,
     )
 
     # 描画後に少し待機してアクティビティを発生させる
